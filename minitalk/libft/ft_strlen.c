@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtabilas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 12:09:19 by jtabilas          #+#    #+#             */
-/*   Updated: 2023/02/17 12:09:21 by jtabilas         ###   ########.fr       */
+/*   Created: 2023/01/17 12:20:02 by jtabilas          #+#    #+#             */
+/*   Updated: 2023/01/17 12:28:06 by jtabilas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include "./libft/libft.h"
-# include "./ft_printf/ft_printf.h"
-# include <signal.h>
+int	ft_strlen(const char *str)
+{
+	int	count;
 
-#endif
+	count = 0;
+	while (str[count])
+		count++;
+	return (count);
+}

@@ -5,17 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtabilas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 09:24:56 by jtabilas          #+#    #+#             */
-/*   Updated: 2023/02/15 09:24:57 by jtabilas         ###   ########.fr       */
+/*   Created: 2023/02/17 12:10:55 by jtabilas          #+#    #+#             */
+/*   Updated: 2023/02/17 12:10:56 by jtabilas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
+#include "minitalk.h"
 
-void	ft_connect(int signal)
+void	ft_receive_byte(int signal)
 {
 	static int	bit;
 	static int	i;
@@ -25,7 +21,7 @@ void	ft_connect(int signal)
 	bit++;
 	if (bit == 8)
 	{
-		printf("%c", i);
+		ft_printf("%c", i);
 		bit = 0;
 		i = 0;
 	}
@@ -38,16 +34,17 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (argc != 1)
 	{
-		printf("Error!");
+		ft_printf ("Error! Try ./server \n");
+		return (0);
 	}
 	pid = getpid();
-	printf("-> %d \n", pid);
-	printf("Waiting for a messagge... \n");
+	ft_printf("PID --> %d \n", pid);
+	ft_printf("Waiting for a messagge.... \n");
 	while (argc == 1)
 	{
-		signal(SIGUSR1, ft_connect);
-		signal(SIGUSR2, ft_connect);
-		pause ();
+		signal(SIGUSR1, ft_receive_byte);
+		signal(SIGUSR2, ft_receive_byte);
+		pause();
 	}
 	return (0);
 }

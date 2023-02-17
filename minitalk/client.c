@@ -5,25 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtabilas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 09:24:46 by jtabilas          #+#    #+#             */
-/*   Updated: 2023/02/15 09:24:47 by jtabilas         ###   ########.fr       */
+/*   Created: 2023/02/17 12:10:45 by jtabilas          #+#    #+#             */
+/*   Updated: 2023/02/17 12:25:14 by jtabilas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
+#include "minitalk.h"
 
-
-void	ft_send_bits(int pid, char i)
+void	ft_sendbyte(int pid, unsigned char byte)
 {
 	int	bit;
 
 	bit = 0;
 	while (bit < 8)
 	{
-		if ((i & (0x01 << bit)) != 0)
+		if (byte & (1 << bit))
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
@@ -38,16 +33,20 @@ int	main(int argc, char **argv)
 	int	i;
 
 	i = 0;
+	if (argc != 3)
+	{
+		ft_printf("Try ./client <PID> <MESSAGGE> \n");
+		return (0);
+	}
 	if (argc == 3)
 	{
-		pid = atoi(argv[1]);
+		pid = ft_atoi(argv[1]);
 		while (argv[2][i] != '\0')
 		{
-			ft_send_bits(pid, argv[2][i]);
+			ft_sendbyte(pid, argv[2][i]);
 			i++;
 		}
-		ft_send_bits(pid, '\n');
+		ft_sendbyte(pid, '\n');
 	}
 	return (0);
 }
-
