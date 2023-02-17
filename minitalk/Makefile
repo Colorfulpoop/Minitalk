@@ -28,7 +28,7 @@ $(CLIENT): $(CLIENT_OBJS) $(LIBFT) $(FT_PRINTF)
 clean:
 	$(MAKE) clean -C ./libft
 	$(MAKE) clean -C ./ft_printf
-	$(RM) $(SV_OBJS)
+	$(RM) $(SV_OBJS) $(CLIENT_OBJS)
 fclean: clean
 	$(MAKE) fclean -C ./libft
 	$(MAKE) fclean -C ./ft_printf
